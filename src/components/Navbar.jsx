@@ -23,7 +23,7 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="/Razifa Usman Khatik - Resume-2.pdf"
+              href="/Razifa_usman_khatik.pdf"
               download
               className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
             >

@@ -24,7 +24,7 @@ const projectDetails = [
   {
     title: "Satellite Image Analysis",
     summary: "Analyzing Vegetation, Water,Bare Soil and Iron Oxide around the Godavari River in Nashik ",
-    description: "Worked on a satellite image analysis project focused on the Godavari River region in Nashik, using Rasterio and Sentinel-2 imagery to monitor environmental changes. Applied spectral indices like NDVI, NDWI,NDBI,IOI to classify terrain and monitor teh chnages over time ",
+    description: "Worked on a satellite image analysis project focused on the Godavari River region in Nashik, using Rasterio and Sentinel-2 imagery to monitor environmental changes. Applied spectral indices like NDVI, NDWI,NDBI,IOI to classify terrain and monitor the changes over time ",
     images: ["sa1.png", "sa.png"]
   },
   {
@@ -69,27 +69,9 @@ export default function Projects() {
             >
               {proj.images && (
                 <div className="mb-4 relative">
-                  <Carousel
-                    showThumbs={false}
-                    showStatus={false}
-                    infiniteLoop
-                    autoPlay
-                    interval={3500}
-                    showIndicators={false}
-                  >
-                    {proj.images.map((img, idx) => (
-                      <img
-                        key={idx}
-                        src={`/projects/${img}`}
-                        alt={`${proj.title} ${idx + 1}`}
-                        className="h-48 w-full object-cover rounded-lg border border-blue-400"
-                      />
-                    ))}
-                  </Carousel>
-
-                  {/* Eye Icon */}
+                  {/* Moved Eye icon above the carousel */}
                   <div
-                    className="absolute top-2 right-2 bg-white bg-opacity-90 p-1 rounded-full shadow cursor-pointer hover:bg-opacity-100 transition"
+                    className="absolute -top-4 right-2 z-10 bg-white bg-opacity-90 p-1 rounded-full shadow cursor-pointer hover:bg-opacity-100 transition"
                     title="View all images fullscreen"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -107,6 +89,24 @@ export default function Projects() {
                       <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
                   </div>
+
+                  <Carousel
+                    showThumbs={false}
+                    showStatus={false}
+                    infiniteLoop
+                    autoPlay
+                    interval={3500}
+                    showIndicators={false}
+                  >
+                    {proj.images.map((img, idx) => (
+                      <img
+                        key={idx}
+                        src={`/projects/${img}`}
+                        alt={`${proj.title} ${idx + 1}`}
+                        className="h-48 w-full object-cover rounded-lg border border-blue-400"
+                      />
+                    ))}
+                  </Carousel>
                 </div>
               )}
 
@@ -133,41 +133,44 @@ export default function Projects() {
 
       {/* Fullscreen Modal with Carousel */}
       {modalImages && (
-        <div
-          className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-90 flex items-center justify-center z-[9999]"
-          onClick={() => setModalImages(null)}
-        >
-          <div
-            className="relative w-full max-w-4xl p-4"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Carousel
-              showThumbs={false}
-              showStatus={false}
-              infiniteLoop
-              emulateTouch
-              showIndicators
-              useKeyboardArrows
-            >
-              {modalImages.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img.startsWith("/projects/") ? img : `/projects/${img}`}
-                  alt={`Full view ${idx}`}
-                  className="max-h-[90vh] w-full object-contain rounded-lg"
-                />
-              ))}
-            </Carousel>
+  <div
+    className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-90 flex items-center justify-center z-[9999]"
+    onClick={() => setModalImages(null)}
+  >
+    <div
+      className="relative w-full max-w-4xl p-4"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Close button positioned better to avoid overlap */}
+      <button
+        onClick={() => setModalImages(null)}
+        className="absolute -top-6 right-0 text-white text-4xl bg-[#0e1628] hover:bg-red-600 px-4 py-1 rounded-full z-50"
+        style={{ transform: 'translateY(20px)' }}
+      >
+        &times;
+      </button>
 
-            <button
-              onClick={() => setModalImages(null)}
-              className="absolute top-2 right-2 text-white text-3xl bg-[#0e1628] hover:bg-red-600 px-3 py-1 rounded-full"
-            >
-              &times;
-            </button>
-          </div>
-        </div>
-      )}
+      <Carousel
+        showThumbs={false}
+        showStatus={false}
+        infiniteLoop
+        emulateTouch
+        showIndicators
+        useKeyboardArrows
+      >
+        {modalImages.map((img, idx) => (
+          <img
+            key={idx}
+            src={img.startsWith("/projects/") ? img : `/projects/${img}`}
+            alt={`Full view ${idx}`}
+            className="max-h-[90vh] w-full object-contain rounded-lg"
+          />
+        ))}
+      </Carousel>
+    </div>
+  </div>
+)}
+
     </>
   );
 }

@@ -1,6 +1,13 @@
 // ✅ Folder: src/components/Chart.jsx
 import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip
+} from "chart.js";
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
 export default function Chart() {
@@ -13,11 +20,16 @@ export default function Chart() {
     ],
     datasets: [
       {
-        label: "Duration (Months)",       
+        label: "Duration (Months)",
         data: [2, 2, 1, 1],
-        backgroundColor: "#3b82f6",
-      },
-    ],
+        backgroundColor: [
+          "#3b82f6", // Blue
+          "#f9a8d4", // Light pink
+          "#3b82f6",
+          "#f9a8d4"
+        ]
+      }
+    ]
   };
 
   const options = {
@@ -25,18 +37,22 @@ export default function Chart() {
     responsive: true,
     plugins: {
       legend: { display: false },
-      title: { display: true, text: "Role Distribution (Months)", color: '#fff' },
+      title: {
+        display: true,
+        text: "Role Distribution (Months)",
+        color: "#fff"
+      }
     },
     scales: {
       x: {
-        ticks: { color: '#fff' },
-        grid: { color: '#2f3e64' },
+        ticks: { color: "#fff" },
+        grid: { color: "#2f3e64" }
       },
       y: {
-        ticks: { color: '#fff' },
-        grid: { color: '#2f3e64' },
-      },
-    },
+        ticks: { color: "#fff" },
+        grid: { color: "#2f3e64" }
+      }
+    }
   };
 
   return (
